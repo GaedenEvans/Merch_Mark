@@ -26,6 +26,7 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
  
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: nameController,
+                controller: emailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Email',
