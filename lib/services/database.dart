@@ -45,4 +45,16 @@ class Database {
     );
     return comments;
   }
+  Future likeStock(String text, String title, String ticker) async {
+    String uid = Uuid().v4();
+    String? owner = Authenication().currentUser!.displayName;
+    DatabaseReference commentsRef = connection.child('comments').child(uid);
+    await commentsRef.set({
+      'uid': uid,
+      'owner': owner,
+      'ticker': ticker,
+      'title': title,
+      'text': text
+    });
+  }
 }

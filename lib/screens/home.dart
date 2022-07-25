@@ -816,6 +816,9 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: 50,
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 10, 10, 10),
               child: const Align(
@@ -883,6 +886,9 @@ class _HomePageState extends State<HomePage> {
                       // return PageView.builder(itemBuilder: (context, index) {});
                     }),
               ),
+            ),
+            SizedBox(
+              height: 50,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 10, 10, 10),
@@ -953,74 +959,77 @@ class _HomePageState extends State<HomePage> {
                     }),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 10, 10, 10),
-              child: const Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'ASE',
-                  style: TextStyle(
-                    fontFamily: 'Chakra',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                height: 100,
-                child: FutureBuilder(
-                    future: StockAPI().fetchStocks('ASE'),
-                    builder: (context, AsyncSnapshot stocks) {
-                      if (stocks.connectionState != ConnectionState.done) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      if (stocks.hasError) {
-                        print(stocks.error);
-                        return Center(child: Container());
-                      }
-                      if (!stocks.hasData) {
-                        return Center(child: Container());
-                      }
-                      return PageView.builder(
-                          controller: _pageController,
-                          itemCount: stocks.data.length,
-                          itemBuilder: (context, i) {
-                            Stock stock = stocks.data[i];
-                            return Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => StockScrn(
-                                          ticker: stock.ticker,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: ListTile(
-                                    title: Text(stock.name),
-                                    leading: Text(stock.ticker),
-                                    subtitle: Text(stock.exchange),
-                                  ),
-                                ),
-                              ),
-                            );
-                          });
-                      // return PageView.builder(itemBuilder: (context, index) {});
-                    }),
-              ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(50, 10, 10, 10),
+            //   child: const Align(
+            //     alignment: Alignment.topLeft,
+            //     child: Text(
+            //       'ASE',
+            //       style: TextStyle(
+            //         fontFamily: 'Chakra',
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Center(
+            //   child: Container(
+            //     height: 100,
+            //     child: FutureBuilder(
+            //         future: StockAPI().fetchStocks('ASE'),
+            //         builder: (context, AsyncSnapshot stocks) {
+            //           if (stocks.connectionState != ConnectionState.done) {
+            //             return const Center(child: CircularProgressIndicator());
+            //           }
+            //           if (stocks.hasError) {
+            //             print(stocks.error);
+            //             return Center(child: Container());
+            //           }
+            //           if (!stocks.hasData) {
+            //             return Center(child: Container());
+            //           }
+            //           return PageView.builder(
+            //               controller: _pageController,
+            //               itemCount: stocks.data.length,
+            //               itemBuilder: (context, i) {
+            //                 Stock stock = stocks.data[i];
+            //                 return Padding(
+            //                   padding: EdgeInsets.all(8.0),
+            //                   child: Container(
+            //                     decoration: BoxDecoration(
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       border: Border.all(
+            //                         color: Colors.grey,
+            //                         width: 1,
+            //                       ),
+            //                     ),
+            //                     child: GestureDetector(
+            //                       onTap: () {
+            //                         Navigator.push(
+            //                           context,
+            //                           MaterialPageRoute(
+            //                             builder: (context) => StockScrn(
+            //                               ticker: stock.ticker,
+            //                             ),
+            //                           ),
+            //                         );
+            //                       },
+            //                       child: ListTile(
+            //                         title: Text(stock.name),
+            //                         leading: Text(stock.ticker),
+            //                         subtitle: Text(stock.exchange),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 );
+            //               });
+            //           // return PageView.builder(itemBuilder: (context, index) {});
+            //         }),
+            //   ),
+            // ),
+            SizedBox(
+              height: 50,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 10, 10, 10),
@@ -1040,55 +1049,56 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 height: 100,
                 child: FutureBuilder(
-                    future: StockAPI().fetchStocks('OTC'),
-                    builder: (context, AsyncSnapshot stocks) {
-                      if (stocks.connectionState != ConnectionState.done) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      if (stocks.hasError) {
-                        print(stocks.error);
-                        return Center(child: Container());
-                      }
-                      if (!stocks.hasData) {
-                        return Center(child: Container());
-                      }
-                      return PageView.builder(
-                          controller: _pageController,
-                          itemCount: stocks.data.length,
-                          itemBuilder: (context, i) {
-                            Stock stock = stocks.data[i];
-                            return Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => StockScrn(
-                                          ticker: stock.ticker,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: ListTile(
-                                    title: Text(stock.name),
-                                    leading: Text(stock.ticker),
-                                    subtitle: Text(stock.exchange),
-                                  ),
+                  future: StockAPI().fetchStocks('OTC'),
+                  builder: (context, AsyncSnapshot stocks) {
+                    if (stocks.connectionState != ConnectionState.done) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (stocks.hasError) {
+                      print(stocks.error);
+                      return Center(child: Container());
+                    }
+                    if (!stocks.hasData) {
+                      return Center(child: Container());
+                    }
+                    return PageView.builder(
+                        controller: _pageController,
+                        itemCount: stocks.data.length,
+                        itemBuilder: (context, i) {
+                          Stock stock = stocks.data[i];
+                          return Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1,
                                 ),
                               ),
-                            );
-                          });
-                      // return PageView.builder(itemBuilder: (context, index) {});
-                    }),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => StockScrn(
+                                        ticker: stock.ticker,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(stock.name),
+                                  leading: Text(stock.ticker),
+                                  subtitle: Text(stock.exchange),
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                    // return PageView.builder(itemBuilder: (context, index) {});
+                  },
+                ),
               ),
             ),
           ],
@@ -1110,18 +1120,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }),
-            IconButton(
-              color: Colors.black,
-              icon: const Icon(Icons.favorite),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => SavedPage()),
-                  ),
-                );
-              },
-            ),
             IconButton(
               color: Colors.black,
               icon: const Icon(Icons.person),

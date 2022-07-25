@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merch_mark/screens/auth/login.dart';
 import 'package:merch_mark/screens/home.dart';
 import 'package:merch_mark/screens/saved.dart';
+import 'package:merch_mark/screens/welcome.dart';
 import 'package:merch_mark/services/auth.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,6 +17,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final Authenication _auth = Authenication();
+  User? get currentUser => _auth.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,23 +193,32 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(15, 10, 170, 10),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => LoginPage()),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Sign Out',
-                      style: TextStyle(
-                          fontFamily: 'Chakra',
-                          fontSize: 20.0,
-                          color: Colors.black),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
+                    child: TextButton(
+                      onPressed: () async {
+                        if (currentUser != null) {
+                          print(currentUser);
+                          final String? result = await _auth.signOut();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) => WelcomePage()),
+                            ),
+                          );
+                        } else {
+                          print("no user");
+                        }
+                      },
+                      child: Text(
+                        'Sign Out',
+                        style: TextStyle(
+                            fontFamily: 'Chakra',
+                            fontSize: 20.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
