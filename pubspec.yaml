@@ -29,6 +29,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^1.19.2
+  firebase_database: ^9.0.19
+  flutter_riverpod: ^1.0.4
+  http: ^0.13.4
+  uuid: ^3.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -91,6 +96,10 @@ flutter:
   - family: Antiqua
     fonts:
     - asset: fonts/ModernAntiqua-Regular.ttf
+  
+  - family: Bellefair
+    fonts:
+    - asset: fonts/Bellefair-Regular.ttf
   
 
   #

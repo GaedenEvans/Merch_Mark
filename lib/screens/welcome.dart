@@ -55,25 +55,25 @@ class WelcomePage extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   color: Colors.grey.shade400,
                 ),
-                child: Builder(
-                  builder: (context) {
-                    return TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) => LoginPage())));
-                      },
-                      child: Text('Login',
-                          style: TextStyle(
-                            fontFamily: 'Antiqua',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          )),
-                    );
-                  }
-                ),
+                child: Builder(builder: (context) {
+                  return TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => LoginPage()),
+                        ),
+                      );
+                    },
+                    child: Text('Login',
+                        style: TextStyle(
+                          fontFamily: 'Antiqua',
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        )),
+                  );
+                }),
               ),
               Container(
                   alignment: Alignment.bottomCenter,
@@ -81,25 +81,23 @@ class WelcomePage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  child: Builder(
-                    builder: (context) {
-                      return TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
+                  child: Builder(builder: (context) {
+                    return TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
                                 builder: ((context) => SignUpPage())));
-                        },
-                        child: Text('SignUp',
-                            style: TextStyle(
-                              fontFamily: 'Antiqua',
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            )),
-                      );
-                    }
-                  )),
+                      },
+                      child: Text('SignUp',
+                          style: TextStyle(
+                            fontFamily: 'Antiqua',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
+                    );
+                  })),
             ]),
           ],
         )),
