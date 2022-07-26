@@ -9,9 +9,9 @@ class Stock {
   final bool? isMarketOpen;
   final DateTime? dateTime;
   Stock(
-      {required this.name,//model for data
+      {required this.name, //model for data
       this.currency,
-      required this.ticker,//Required data is going to be fetched and for the not required data ones it will return null if not found 
+      required this.ticker, //Required data is going to be fetched and for the not required data ones it will return null if not found
       required this.exchange,
       this.openingPrice,
       this.closingPrice,
@@ -19,11 +19,12 @@ class Stock {
       this.isMarketOpen,
       this.dateTime});
   factory Stock.fromJson(json) {
+    print(json);
     return Stock(
-        name: json['name'],
-        currency: json['currency'],
-        ticker: json['symbol'],
-        exchange: json['exchange'],
+        name: json['name'] ?? 'Offline',
+        currency: json['currency'] ?? 'Offline',
+        ticker: json['symbol'] ?? 'Offline',
+        exchange: json['exchange'] ?? 'Offline',
         openingPrice: double.parse(json['open'] ?? '0'),
         closingPrice: double.parse(json['close'] ?? '0'),
         volume: int.parse(json['volume'] ?? '0'),

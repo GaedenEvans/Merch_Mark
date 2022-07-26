@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merch_mark/screens/auth/login.dart';
 import 'package:merch_mark/screens/home.dart';
-import 'package:merch_mark/screens/saved.dart';
 import 'package:merch_mark/screens/welcome.dart';
 import 'package:merch_mark/services/auth.dart';
 
@@ -88,44 +87,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
-              child: Text(
-                'Saves',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Chakra',
-                    fontSize: 25.0),
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 10, 215, 0),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => SavedPage()),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Saved Items',
-                      style: TextStyle(
-                          fontFamily: 'Chakra',
-                          fontSize: 20.0,
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.favorite_outline,
-                  color: Colors.black,
-                ),
-              ],
-            ),
-            Padding(
               padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
               child: Text(
                 'Account',
@@ -195,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Center(
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
+                    padding: EdgeInsets.fromLTRB(150, 10, 0, 0),
                     child: TextButton(
                       onPressed: () async {
                         if (currentUser != null) {

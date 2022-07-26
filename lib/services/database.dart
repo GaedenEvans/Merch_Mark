@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:merch_mark/services/auth.dart';
 import 'package:merch_mark/utils/models/comment.dart';
+import 'package:merch_mark/utils/models/stock.dart';
 import 'package:uuid/uuid.dart';
 
 class Database {
@@ -45,16 +49,37 @@ class Database {
     );
     return comments;
   }
-  Future likeStock(String text, String title, String ticker) async {
+
+  likeStock(String ticker, String name, String exchange) async {
+    print('hello');
     String uid = Uuid().v4();
-    String? owner = Authenication().currentUser!.displayName;
-    DatabaseReference commentsRef = connection.child('comments').child(uid);
-    await commentsRef.set({
-      'uid': uid,
-      'owner': owner,
-      'ticker': ticker,
-      'title': title,
-      'text': text
-    });
+    String? owner = Authenication().currentUser!.uid;
+    DatabaseReference likeStocksRef =
+        connection.child('likes').child(owner).child(uid);
+    await likeStocksRef.update(
+      {
+        'owner': owner,
+        'symbol': ticker,
+        'exchange': exchange,
+        'name': name,
+      },
+    );
+  }
+
+  getLikeStock() async {
+    List<Stock> stocksList = [];
+    DatabaseReference getLikeStockRef =
+        connection.child('likes').child(Authenication().currentUser!.uid);
+    print('Made');
+    final event = await getLikeStockRef.once(DatabaseEventType.value);
+    final Map queryData = event.snapshot.value as Map;
+    queryData.forEach(
+      (k, v) {
+        print(k);
+        stocksList.add(Stock.fromJson(v));
+      },
+    );
+    print(stocksList);
+    return stocksList;
   }
 }

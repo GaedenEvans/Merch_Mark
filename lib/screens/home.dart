@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:merch_mark/screens/Profile.dart';
 import 'package:merch_mark/screens/comment.dart';
 import 'package:merch_mark/screens/comment_section.dart';
-import 'package:merch_mark/screens/product.dart';
-import 'package:merch_mark/screens/saved.dart';
 import 'package:merch_mark/services/database.dart';
 
 import '../services/stock_data.dart';
@@ -669,8 +667,9 @@ class _StockScrnState extends State<StockScrn> {
                   icon: selected
                       ? firstIcon
                       : secondIcon, //Question asking if selected is true
-                  onPressed: () {
-                    print('Selecting Button');
+                  onPressed: () async {
+                    await Database()
+                        .likeStock(stock.ticker, stock.name, stock.exchange);
                     try {
                       // your code that you want this IconButton do
                       setState(
@@ -1062,40 +1061,122 @@ class _HomePageState extends State<HomePage> {
                       return Center(child: Container());
                     }
                     return PageView.builder(
-                        controller: _pageController,
-                        itemCount: stocks.data.length,
-                        itemBuilder: (context, i) {
-                          Stock stock = stocks.data[i];
-                          return Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1,
-                                ),
-                              ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => StockScrn(
-                                        ticker: stock.ticker,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  title: Text(stock.name),
-                                  leading: Text(stock.ticker),
-                                  subtitle: Text(stock.exchange),
-                                ),
+                      controller: _pageController,
+                      itemCount: stocks.data.length,
+                      itemBuilder: (context, i) {
+                        Stock stock = stocks.data[i];
+                        return Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
                               ),
                             ),
-                          );
-                        });
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => StockScrn(
+                                      ticker: stock.ticker,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: ListTile(
+                                title: Text(stock.name),
+                                leading: Text(stock.ticker),
+                                subtitle: Text(stock.exchange),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                    // return PageView.builder(itemBuilder: (context, index) {});
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(50, 10, 10, 10),
+              child: const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Favorites',
+                  style: TextStyle(
+                    fontFamily: 'Chakra',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                height: 100,
+                child: FutureBuilder(
+                  future: Database().getLikeStock(),
+                  builder: (context, AsyncSnapshot stocks) {
+                    if (stocks.connectionState != ConnectionState.done) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (stocks.hasError) {
+                      // print(stocks.error);
+                      return Center(
+                        child: Container(
+                          color: Colors.black,
+                        ),
+                      );
+                    }
+                    if (!stocks.hasData) {
+                      return Center(
+                          child: Container(
+                        color: Colors.pink,
+                      ));
+                    }
+                    return PageView.builder(
+                      controller: _pageController,
+                      itemCount: stocks.data.length,
+                      itemBuilder: (context, i) {
+                        Stock stock = stocks.data[i];
+                        return Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => StockScrn(
+                                      ticker: stock.ticker,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: ListTile(
+                                title: Text(stock.name),
+                                leading: Text(stock.ticker),
+                                subtitle: Text(stock.exchange),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
                     // return PageView.builder(itemBuilder: (context, index) {});
                   },
                 ),
