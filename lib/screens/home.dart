@@ -1128,10 +1128,9 @@ class _HomePageState extends State<HomePage> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (stocks.hasError) {
-                      // print(stocks.error);
+                      print(stocks.error);
                       return Center(
                         child: Container(
-                          color: Colors.black,
                         ),
                       );
                     }
@@ -1152,7 +1151,7 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.red,
+                                color: Colors.grey,
                                 width: 1,
                               ),
                             ),
@@ -1198,7 +1197,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: ((context) => HomePage()),
-                    ),
+                    ), 
                   );
                 }),
             IconButton(

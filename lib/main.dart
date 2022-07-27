@@ -15,7 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: MyApp()));//Provider scope is used so I can add stream, values, etc..
 }
 
 class MyApp extends StatefulWidget {
@@ -52,7 +52,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
   final Authenication _auth = Authenication();
   @override
   Widget build(BuildContext context) {
-    return Consumer(
+    return Consumer(//allows Build Context when you dont have provider value
       builder: ((context, ref, child) {
         final response = ref.watch(authStateStreamProvider);
         return response.when(
@@ -60,7 +60,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
               if (value != null) {
                 return HomePage();
               }
-              return LoginPage();
+              return WelcomePage();
             },
             error: (__, ___) {
               return const Scaffold(

@@ -18,10 +18,16 @@ class Stock {
       this.volume,
       this.isMarketOpen,
       this.dateTime});
-  factory Stock.fromJson(json) {
+  factory Stock.fromJson(json) {//JSON is a structure of data based off of javascript syntax
     print(json);
     return Stock(
         name: json['name'] ?? 'Offline',
+        // if(json != null){
+        //   return json
+        // } else {
+        //   return 'offline'
+        // }  Same thing as line above
+        //If Json name null if not it is going to return offline
         currency: json['currency'] ?? 'Offline',
         ticker: json['symbol'] ?? 'Offline',
         exchange: json['exchange'] ?? 'Offline',
